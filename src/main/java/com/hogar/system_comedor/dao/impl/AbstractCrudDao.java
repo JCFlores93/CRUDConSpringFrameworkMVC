@@ -13,16 +13,16 @@ public abstract class AbstractCrudDao{
 		return sessionFactory.getCurrentSession();
 	}
 
-	public void save(Object entity) {
-		getSession().save(entity);		
+	public Long save(Object entity) {
+		return (Long)getSession().save(entity);		
 	}
 
 	public void update(Object entity) {
 		getSession().update(entity);
 	}
 	
-	public void persist(Object entity){
-		getSession().persist(entity);
+	public void delete(Object entity) {
+		getSession().delete(entity);
 	}
 
 }
