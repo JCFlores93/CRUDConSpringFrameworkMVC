@@ -1,5 +1,7 @@
 package com.hogar.system_comedor.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,10 @@ public class NClienteImpl implements IClienteService{
 	
 	public Long registrarCliente(Cliente cliente) {
 		return iClienteDao.registrarCliente(cliente);
+	}
+	
+	public List<Cliente> listarClientes(Cliente cliente) {
+		return iClienteDao.listarClientes(cliente);
 	}
 
 }

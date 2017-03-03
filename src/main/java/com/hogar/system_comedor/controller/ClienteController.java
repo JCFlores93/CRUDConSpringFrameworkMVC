@@ -30,5 +30,13 @@ public class ClienteController {
 		Long idCliente = iClienteService.registrarCliente(cliente);
 		return "";
 	}
+	
+	@RequestMapping(value = "/listarCliente" , method = RequestMethod.GET)
+	public String listarCliente(HttpServletRequest request , HttpSession session){
+		Cliente cliente = new Cliente();
+		cliente.setIdCliente(Long.parseLong("0"));
+		iClienteService.listarClientes(cliente);
+		return "";
+	}
 
 }
