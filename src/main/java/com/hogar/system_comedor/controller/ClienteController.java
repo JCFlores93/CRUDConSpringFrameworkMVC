@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hogar.system_comedor.dominio.Cliente;
 import com.hogar.system_comedor.service.IClienteService;
+import com.hogar.system_comedor.util.Constantes;
 
 @Controller
 @RequestMapping("/cliente")
@@ -20,6 +21,11 @@ public class ClienteController {
 	
 	@Autowired
 	private IClienteService iClienteService;
+	
+	@RequestMapping(value="/irRegistrarCliente" , method=RequestMethod.GET)
+	public String irRegistrarCliente(){
+		return Constantes.PAGINA_REGISTRAR_CLIENTE;
+	}
 	
 	@RequestMapping(value = "/registrarCliente" , method = RequestMethod.GET)
 	public String registrarCliente(HttpServletRequest request , HttpSession session){
