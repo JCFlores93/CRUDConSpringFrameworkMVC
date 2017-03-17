@@ -1,6 +1,7 @@
 package com.hogar.system_comedor.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hogar.system_comedor.dominio.Cliente;
 import com.hogar.system_comedor.service.IClienteService;
@@ -26,15 +28,18 @@ public class ClienteController {
 	public String irRegistrarCliente(){
 		return Constantes.PAGINA_REGISTRAR_CLIENTE;
 	}
-	
+
+	@ResponseBody
 	@RequestMapping(value = "/registrarCliente" , method = RequestMethod.GET)
-	public String registrarCliente(HttpServletRequest request , HttpSession session){
-		Cliente cliente = new Cliente();
-		cliente.setCodigoCliente("AB567237#");
-		cliente.setFechaRegistro(new Date());
-		cliente.setNombreCliente("Anthony");
+	public String registrarCliente(Cliente cliente,HttpServletRequest request , HttpSession session){
+		String mensaje = "";
 		Long idCliente = iClienteService.registrarCliente(cliente);
-		return "";
+		if(idCliente != null){
+			mensaje = "Se registro correctamente el cliente";
+		}else{
+			mensaje = "Hubo un error en el registro del cliente";
+		}
+		return mensaje;
 	}
 	
 	@RequestMapping(value = "/listarCliente" , method = RequestMethod.GET)
