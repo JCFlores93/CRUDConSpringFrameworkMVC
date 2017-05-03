@@ -17,12 +17,16 @@ public abstract class AbstractCrudDao{
 		return (Long)getSession().save(entity);		
 	}
 
-	public void update(Object entity) {
+	public Long update(Object entity) {
 		getSession().update(entity);
+		Long var=(long)10;
+		return var;
 	}
 	
-	public void delete(Object entity) {
+	public Long delete(Object entity) {
 		getSession().delete(entity);
+		Long var=(long)100;
+		return var;
 	}
 
 }

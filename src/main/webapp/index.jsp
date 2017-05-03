@@ -1,5 +1,135 @@
-<html>
+<%@page session="false"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<c:url var="home" value="/alumno/" scope="request" />
+<!--<spring:url value="/resources/core/css/hello.css" var="coreCss" />-->
+<spring:url value="/resources/core/css/bootstrap.min.css" var="bootstrapCss" />
+<link href="${bootstrapCss}" rel="stylesheet" />
+<!-- <link href="${coreCss}" rel="stylesheet" /> -->
+
+<spring:url value="/resources/core/js/jquery-3.1.1.min.js" var="jqueryJs" />
+<script src="${jqueryJs}"></script>
+</head>
 <body>
-<h2>Hello World!</h2>
+
+<nav class="navbar navbar-inverse">
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">Spring 4 MVC Ajax Hello World</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container" style="min-height: 500px">
+
+	<div class="starter-template">
+		<h1>Formulario de Busqueda del alumno</h1>
+		<br>
+
+		<div id="feedback"></div>
+
+		<form class="form-horizontal" id="search-form">
+			<div class="form-group form-group-lg">
+				<label class="col-sm-2 control-label">Nombre del Alumno</label>
+				<div class="col-sm-10">
+					<input type=text class="form-control" id="nombre">
+				</div>
+			</div>
+			
+			<div class="form-group form-group-lg">
+				<label class="col-sm-2 control-label">Apellido del Alumno</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="apellido">
+				</div>
+			</div>
+			
+			<div class="form-group form-group-lg">
+				<label class="col-sm-2 control-label">Dni del Alumno</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="dni">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" id="bth-search"
+						class="btn btn-primary btn-lg">Buscar</button>
+				</div>
+			</div>
+		</form>
+
+	</div>
+
+</div>
+
+<div class="container">
+	<footer>
+		<p>
+			© <a href="http://www.mkyong.com">Mkyong.com</a> 2015
+		</p>
+	</footer>
+</div>
+
+<script>
+	jQuery(document).ready(function($) {
+
+		$("#search-form").submit(function(event) {
+
+			// Disble the search button
+			enableSearchButton(false);
+
+			// Prevent the form from submitting via the browser.
+			event.preventDefault();
+
+			searchViaAjax();
+
+		});
+
+	});
+
+	function searchViaAjax() {
+
+		var search = {}
+		search["nombre"] = $("#nombre").val();
+		search["apellido"] = $("#apellido").val();
+		search["dni"] = $("#dni").val();
+
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url : "${home}search/api/getSearchResult",
+			data : JSON.stringify(search),
+			dataType : 'json',
+			timeout : 100000,
+			success : function(data) {
+				console.log("SUCCESS: ", data);
+				display(data);
+			},
+			error : function(e) {
+				console.log("ERROR: ", e);
+				display(e);
+			},
+			done : function(e) {
+				console.log("DONE");
+				enableSearchButton(true);
+			}
+		});
+
+	}
+
+	function enableSearchButton(flag) {
+		$("#btn-search").prop("disabled", flag);
+	}
+
+	function display(data) {
+		var json = "<h4>Ajax Response</h4><pre>"
+				+ JSON.stringify(data, null, 4) + "</pre>";
+		$('#feedback').html(json);
+	}
+</script>
+
 </body>
 </html>

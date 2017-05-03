@@ -25,9 +25,12 @@ public class DClienteImpl extends AbstractCrudDao implements IClienteDao{
 	}
 
 	public List<Cliente> listarClientes(Cliente cliente) {
-		StringBuilder cadena =  new StringBuilder("select c from Cliente c.Direcciones where");
+		//StringBuilder cadena =  new StringBuilder("select c from Cliente c.Direcciones where 1=1");
+	
+		StringBuilder cadena =  new StringBuilder("select c.direccion_cliente from Cliente c where 1=1");
 		if(cliente.idCliente != null && cliente.idCliente != 0){
-			cadena.append(" and c.idCliente = :idCliente");
+			//cadena.append(" and c.idCliente = :idCliente");
+			cadena.append("  and c.id_cliente= :idCliente");
 		}
 		Query query = getSession().createQuery(cadena.toString());
 		if(cliente.idCliente != null && cliente.idCliente != 0){

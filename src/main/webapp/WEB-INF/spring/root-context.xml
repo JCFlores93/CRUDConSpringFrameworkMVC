@@ -26,7 +26,7 @@
 		p:driverClassName="oracle.jdbc.driver.OracleDriver" 
 		p:url="jdbc:oracle:thin:@localhost:1521:orcl"
 		p:username="DESARROLLO_COMEDOR" 
-		p:password="1234" />
+		p:password="conta" />
 		
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" >
         <property name="dataSource" ref="dataSource"/>
@@ -52,7 +52,9 @@
         class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
 	<!-- Aca se declaran los dao a utilizar -->
-	<!-- <bean id="iClienteDao"  class="com.hogar.system_comedor.dao.impl.DClienteDaoImpl" /> -->
+	<bean id="iClienteDao"  class="com.hogar.system_comedor.dao.impl.DClienteImpl" />
+	<bean id="iTablaMaestraDao"  class="com.hogar.system_comedor.dao.impl.DTablaMaestraImpl" />
+	
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	

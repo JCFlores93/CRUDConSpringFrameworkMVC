@@ -7,10 +7,11 @@ $(document).ready(function(){
 		$.ajax({
 			url:"/system_comedor/cliente/registrarCliente",
 			type:"GET",
-			dataType:"json",
+			dataType:"text",
 			data:{"codigoCliente" : codigo , "nombreCliente" : nombres , "telefono" : telefono},
 			success: function(data){
-				alert(data);
+				var obj=JSON.Parse(data);
+				alert(obj);
 			},
 			error:function(data){
 				alert("ERROR");
